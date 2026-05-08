@@ -5,177 +5,229 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EmpleaTec Skill Challenge</title>
     <style>
-        :root { --tec-blue: #003087; --tecm-green: #00b388; --dark: #0f172a; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--dark); color: white; margin: 0; text-align: center; }
-        .header { padding: 20px; background: #1e293b; border-bottom: 3px solid var(--tec-blue); }
-        .container { width: 90%; max-width: 500px; margin: auto; padding: 20px; }
-        .card { background: #1e293b; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-top: 20px; }
-        button { background: var(--tec-blue); color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; margin: 10px 0; font-size: 1.1em; }
+        :root { --tec-blue: #003087; --tecm-green: #00b388; --dark: #0a0f1e; --card: #161e31; }
+        body { font-family: 'Montserrat', 'Segoe UI', sans-serif; background: var(--dark); color: white; margin: 0; overflow-x: hidden; }
+        
+        /* Header con Logos */
+        .header-brand { display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; background: #ffffff; border-bottom: 4px solid var(--tec-blue); }
+        .logo-img { height: 35px; }
+        .header-brand h1 { color: var(--tec-blue); font-size: 1.2rem; margin: 0; font-weight: 900; }
+
+        .container { width: 90%; max-width: 500px; margin: 20px auto; text-align: center; }
+        .card { background: var(--card); padding: 25px; border-radius: 24px; border: 1px solid #2d3748; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        
+        button { background: var(--tec-blue); color: white; border: none; padding: 18px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1rem; transition: 0.3s; }
+        button:active { transform: scale(0.98); }
         .btn-green { background: var(--tecm-green); }
+
+        .game-box { height: 300px; background: #00000033; border-radius: 15px; position: relative; border: 2px dashed #334155; margin: 15px 0; overflow: hidden; }
+        .timer-bar { width: 100%; height: 6px; background: #1e293b; border-radius: 3px; margin-bottom: 10px; }
+        .timer-fill { height: 100%; background: #f43f5e; width: 100%; transition: 1s linear; }
         
-        /* Gráficos de Juegos */
-        .game-box { height: 250px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: #0f172a; border-radius: 15px; margin-bottom: 15px; }
-        .node { width: 60px; height: 60px; border-radius: 50%; position: absolute; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; transition: 0.2s; }
-        .task-bar { width: 100%; background: #334155; height: 10px; border-radius: 5px; margin: 10px 0; }
-        .task-progress { background: var(--tecm-green); height: 100%; width: 0%; border-radius: 5px; transition: 0.3s; }
+        .node { width: 55px; height: 55px; border-radius: 50%; position: absolute; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; animation: pop 0.3s ease-out; }
+        @keyframes pop { from {transform: scale(0);} to {transform: scale(1);} }
         
-        /* Logos */
-        .footer-logos { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 30px; padding: 20px; }
-        .logo-img { height: 40px; filter: brightness(1.2); }
-        .skill-badge { color: var(--tecm-green); font-weight: bold; border: 1px solid var(--tecm-green); padding: 5px 10px; border-radius: 5px; font-size: 0.8em; margin: 5px; display: inline-block; }
+        .skill-badge { background: rgba(0, 179, 136, 0.1); color: var(--tecm-green); border: 1px solid var(--tecm-green); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; display: inline-block; margin: 3px; }
+        .instr { font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px; line-height: 1.4; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1 style="margin:0;">EmpleaTec 2026</h1>
-    <p style="margin:5px 0; opacity:0.8;">Mide tus habilidades competitivas</p>
+<div class="header-brand">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Logo_del_Tec_de_Monterrey.svg" class="logo-img">
+    <h1>EmpleaTec</h1>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Logo_Tecmilenio.png/640px-Logo_Tecmilenio.png" class="logo-img">
 </div>
 
-<div class="container" id="main-menu">
-    <div class="card">
-        <h3>Selecciona un reto:</h3>
-        <button onclick="startDigital()">🌐 Nexo Digital</button>
-        <p style="font-size:0.7em; opacity:0.6;">Agilidad, Destreza, Adaptación</p>
-        
-        <button onclick="startResults()" class="btn-green">📈 Misión Resultados</button>
-        <p style="font-size:0.7em; opacity:0.6;">Autogestión, Organización, Resolución</p>
-        
-        <button onclick="startService()">🤝 Radar de Servicio</button>
-        <p style="font-size:0.7em; opacity:0.6;">Resiliencia, Orientación al Servicio</p>
+<div class="container" id="view-manager">
+    <div id="menu">
+        <div class="card">
+            <h2 style="margin-top:0">Bienvenido al Challenge</h2>
+            <p class="instr">Completa los 3 desafíos de 25 segundos para descubrir tu perfil de competencias oficiales.</p>
+            <button onclick="showStart('digital')">1. NEXO DIGITAL</button>
+            <button onclick="showStart('results')" class="btn-green" style="margin-top:10px;">2. MISIÓN RESULTADOS</button>
+            <button onclick="showStart('service')" style="margin-top:10px;">3. RADAR DE SERVICIO</button>
+        </div>
+    </div>
+
+    <div id="start-screen" style="display:none">
+        <div class="card">
+            <h2 id="st-title"></h2>
+            <p id="st-desc" class="instr"></p>
+            <button id="st-btn" class="btn-green">¡COMENZAR RETO!</button>
+        </div>
+    </div>
+
+    <div id="game-view" style="display:none">
+        <div class="timer-bar"><div id="t-fill" class="timer-fill"></div></div>
+        <div id="game-ui"></div>
+        <div class="game-box" id="stage"></div>
+    </div>
+
+    <div id="result-view" style="display:none">
+        <div class="card" id="result-card"></div>
+        <button onclick="location.reload()" style="margin-top:15px; background:#475569;">VOLVER AL INICIO</button>
     </div>
 </div>
 
-<div class="container" id="game-area" style="display:none;">
-    <h2 id="game-title"></h2>
-    <div id="game-content" class="card"></div>
-    <button onclick="location.reload()" style="background:#475569;">Reiniciar</button>
-</div>
-
-<div class="footer-logos">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Logo_del_Tec_de_Monterrey.svg" class="logo-img" alt="Tec">
-    <span style="font-weight:bold; color:white; font-size:1.2em;">EmpleaTec</span>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Logo_Tecmilenio.png/640px-Logo_Tecmilenio.png" class="logo-img" alt="Tecmilenio">
-</div>
-
 <script>
-    const area = document.getElementById('game-area');
-    const menu = document.getElementById('main-menu');
-    const content = document.getElementById('game-content');
-    const title = document.getElementById('game-title');
+    let currentScore = 0;
+    let timeLeft = 25;
+    let timerInterval;
+    const stage = document.getElementById('stage');
 
-    function initGame(name) {
-        menu.style.display = 'none';
-        area.style.display = 'block';
-        title.innerText = name;
+    const games = {
+        digital: {
+            title: "Nexo Digital",
+            desc: "Toca los círculos lo más rápido posible. Los azules valen 1 pto, los dorados valen 5 ptos. Evalúa Agilidad de Aprendizaje y Destreza Digital.",
+            play: () => spawnDigital()
+        },
+        results: {
+            title: "Misión Resultados",
+            desc: "Solo toca los engranajes VERDES. Evita los ROJOS que te restan puntos. Evalúa Orientación a Resultados y Autogestión.",
+            play: () => spawnResults()
+        },
+        service: {
+            title: "Radar de Servicio",
+            desc: "Aparecerán emojis. Resuelve los 'molestos' (😡) tocándolos dos veces. Evalúa Inteligencia Social y Resiliencia.",
+            play: () => spawnService()
+        }
+    };
+
+    function showStart(key) {
+        document.getElementById('menu').style.display = 'none';
+        const scr = document.getElementById('start-screen');
+        scr.style.display = 'block';
+        document.getElementById('st-title').innerText = games[key].title;
+        document.getElementById('st-desc').innerText = games[key].desc;
+        document.getElementById('st-btn').onclick = () => startGame(key);
     }
 
-    // --- JUEGO 1: NEXO DIGITAL ---
-    function startDigital() {
-        initGame("Nexo Digital");
-        let score = 0; let timeLeft = 40;
-        let isUpdated = false;
-
-        const spawn = () => {
-            if(timeLeft <= 0) return;
-            const colors = isUpdated ? ['#f43f5e', '#10b981'] : ['#3b82f6', '#f59e0b'];
-            const x = Math.random() * 80;
-            const y = Math.random() * 80;
-            content.innerHTML = `
-                <p>Toca los nodos rápidamente. ¡Cuidado con el cambio de interfaz!</p>
-                <div class="game-box" id="box">
-                    <div class="node" style="left:${x}%; top:${y}%; background:${colors[0]};" onclick="window.hitDigital()">📱</div>
-                </div>
-                <p>Conexiones: ${score} | Tiempo: ${timeLeft}s</p>
-            `;
-        };
-
-        window.hitDigital = () => { score++; spawn(); };
+    function startGame(key) {
+        document.getElementById('start-screen').style.display = 'none';
+        document.getElementById('game-view').style.display = 'block';
+        currentScore = 0;
+        timeLeft = 25;
+        document.getElementById('t-fill').style.width = '100%';
         
-        let timer = setInterval(() => {
+        timerInterval = setInterval(() => {
             timeLeft--;
-            if(timeLeft === 20) { isUpdated = true; } // Cambio de interfaz
-            if(timeLeft <= 0) {
-                clearInterval(timer);
-                finish("Conector Pro", "Agilidad de aprendizaje, Destreza digital, Inteligencia social, Adaptación al cambio", score);
-            } else spawn();
+            document.getElementById('t-fill').style.width = (timeLeft/25)*100 + '%';
+            if(timeLeft <= 0) endGame(key);
         }, 1000);
-        spawn();
+
+        games[key].play();
     }
 
-    // --- JUEGO 2: MISIÓN RESULTADOS ---
-    function startResults() {
-        initGame("Misión Resultados");
-        let solved = 0; let energy = 100; let timeLeft = 40;
-
-        const update = () => {
-            content.innerHTML = `
-                <p>Resuelve proyectos. No agotes tu energía dando clicks sin sentido.</p>
-                <div class="task-bar"><div class="task-progress" style="width:${energy}%"></div></div>
-                <div class="game-box">
-                    <div class="node" style="background:var(--tecm-green); position:static;" onclick="window.doJob()">⚙️</div>
-                </div>
-                <p>Proyectos: ${solved} | Energía: ${energy}%</p>
-            `;
-        };
-
-        window.doJob = () => {
-            if(energy > 10) {
-                solved++; energy -= 15;
-                setTimeout(() => { if(energy < 100) energy += 5; update(); }, 500);
-            } else { alert("¡Sin energía! Organiza tus esfuerzos."); }
-            update();
-        };
-
-        let timer = setInterval(() => {
-            timeLeft--;
-            if(timeLeft <= 0) {
-                clearInterval(timer);
-                finish("Arquitecto de Soluciones", "Autogestión, Orientación a resultados, Organización, Resolución de problemas", solved);
-            } else update();
-        }, 1000);
-        update();
+    // --- LÓGICA JUEGO 1: NEXO ---
+    function spawnDigital() {
+        stage.innerHTML = '';
+        if(timeLeft <= 0) return;
+        const isBonus = Math.random() > 0.8;
+        const node = document.createElement('div');
+        node.className = 'node';
+        node.style.left = Math.random()*80 + '%';
+        node.style.top = Math.random()*80 + '%';
+        node.style.background = isBonus ? '#f1c40f' : '#3b82f6';
+        node.innerText = isBonus ? '⭐' : '📱';
+        node.onclick = () => { currentScore += isBonus ? 5 : 1; spawnDigital(); };
+        stage.appendChild(node);
     }
 
-    // --- JUEGO 3: RADAR DE SERVICIO ---
-    function startService() {
-        initGame("Radar de Servicio");
-        let score = 0; let timeLeft = 40;
-
-        const update = () => {
-            const types = [{e:'😊', v:10, t:'Servicio'}, {e:'😡', v:20, t:'Resiliencia'}];
-            const sel = types[Math.floor(Math.random()*2)];
-            content.innerHTML = `
-                <p>Atiende a los usuarios según su estado de ánimo.</p>
-                <div class="game-box">
-                    <div class="node" style="background:white; color:black; font-size:40px; position:static;" onclick="window.hitService(${sel.v})">${sel.e}</div>
-                </div>
-                <p>Puntos de Servicio: ${score} | Tiempo: ${timeLeft}s</p>
-            `;
-        };
-
-        window.hitService = (v) => { score += v; update(); };
-
-        let timer = setInterval(() => {
-            timeLeft--;
-            if(timeLeft <= 0) {
-                clearInterval(timer);
-                finish("Embajador de Experiencias", "Orientación al servicio, Resiliencia, Adaptación al cambio", score);
-            } else update();
-        }, 1000);
-        update();
+    // --- LÓGICA JUEGO 2: RESULTADOS ---
+    function spawnResults() {
+        stage.innerHTML = '';
+        if(timeLeft <= 0) return;
+        for(let i=0; i<2; i++) {
+            const isBad = Math.random() > 0.6;
+            const node = document.createElement('div');
+            node.className = 'node';
+            node.style.left = Math.random()*80 + '%';
+            node.style.top = Math.random()*80 + '%';
+            node.style.background = isBad ? '#ef4444' : '#10b981';
+            node.innerText = isBad ? '⚠️' : '⚙️';
+            node.onclick = () => { 
+                currentScore += isBad ? -3 : 2; 
+                spawnResults(); 
+            };
+            stage.appendChild(node);
+        }
     }
 
-    function finish(perfil, skills, score) {
-        let skillsArr = skills.split(', ');
-        content.innerHTML = `
-            <h2 style="color:var(--tecm-green)">¡Reto Superado!</h2>
-            <h3 style="margin-bottom:0;">${perfil}</h3>
-            <p style="margin-top:5px; opacity:0.8;">Puntaje: ${score}</p>
-            <div style="margin:15px 0;">
-                ${skillsArr.map(s => `<span class="skill-badge">${s}</span>`).join('')}
+    // --- LÓGICA JUEGO 3: SERVICE ---
+    function spawnService() {
+        stage.innerHTML = '';
+        if(timeLeft <= 0) return;
+        const isAngry = Math.random() > 0.5;
+        const node = document.createElement('div');
+        node.className = 'node';
+        let clicks = isAngry ? 2 : 1;
+        node.style.left = Math.random()*80 + '%';
+        node.style.top = Math.random()*80 + '%';
+        node.style.background = isAngry ? '#991b1b' : '#1e3a8a';
+        node.innerText = isAngry ? '😡' : '😊';
+        node.onclick = () => {
+            clicks--;
+            if(clicks <= 0) { currentScore += isAngry ? 10 : 3; spawnService(); }
+            else { node.innerText = '⏳'; node.style.background = '#f97316'; }
+        };
+        stage.appendChild(node);
+    }
+
+    function endGame(key) {
+        clearInterval(timerInterval);
+        document.getElementById('game-view').style.display = 'none';
+        const resView = document.getElementById('result-view');
+        const resCard = document.getElementById('result-card');
+        resView.style.display = 'block';
+
+        let perfil = "";
+        let skills = [];
+
+        // SISTEMA DE EVALUACIÓN REAL POR JUEGO
+        if(key === 'digital') {
+            if(currentScore > 20) {
+                perfil = "Conector de Vanguardia";
+                skills = ["Destreza Digital", "Agilidad de Aprendizaje", "Adaptación al cambio"];
+            } else if (currentScore > 5) {
+                perfil = "Explorador Tecnológico";
+                skills = ["Destreza Digital"];
+            } else {
+                perfil = "Perfil en Crecimiento";
+                skills = ["Potencial de Aprendizaje"];
+            }
+        } else if(key === 'results') {
+            if(currentScore > 15) {
+                perfil = "Arquitecto de Resultados";
+                skills = ["Orientación a Resultados", "Autogestión", "Resolución de Problemas"];
+            } else if (currentScore > 5) {
+                perfil = "Ejecutor Enfocado";
+                skills = ["Organización"];
+            } else {
+                perfil = "Perfil en Desarrollo";
+                skills = ["Potencial de Autogestión"];
+            }
+        } else if(key === 'service') {
+            if(currentScore > 30) {
+                perfil = "Embajador de Inteligencia Social";
+                skills = ["Inteligencia Social", "Orientación al Servicio", "Resiliencia"];
+            } else if (currentScore > 10) {
+                perfil = "Gestor de Experiencias";
+                skills = ["Orientación al Servicio"];
+            } else {
+                perfil = "Empatía en Formación";
+                skills = ["Potencial de Resiliencia"];
+            }
+        }
+
+        resCard.innerHTML = `
+            <h1 style="color:var(--tecm-green); margin:0;">${perfil}</h1>
+            <p>Tu desempeño generó un impacto de: <strong>${currentScore} pts</strong></p>
+            <div style="margin:20px 0;">
+                <p style="font-size:0.8rem; opacity:0.7">Habilidades Identificadas:</p>
+                ${skills.map(s => `<span class="skill-badge">${s}</span>`).join('')}
             </div>
-            <p style="font-size:0.8em; border-top:1px solid #334155; padding-top:10px;">Tu perfil destaca por estas competencias oficiales de <strong>Tec / Tecmilenio</strong>.</p>
+            <p style="font-size:0.8rem; line-height:1.4">Este perfil ha sido validado bajo el marco de competencias de EmpleaTec 2026.</p>
         `;
     }
 </script>

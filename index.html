@@ -6,27 +6,38 @@
     <title>EmpleaTec Skill Challenge</title>
     <style>
         :root { --tec-blue: #003087; --tecm-green: #00b388; --dark: #0a0f1e; --card: #161e31; }
-        body { font-family: 'Montserrat', 'Segoe UI', sans-serif; background: var(--dark); color: white; margin: 0; overflow-x: hidden; }
+        body { font-family: 'Montserrat', 'Segoe UI', sans-serif; background: var(--dark); color: white; margin: 0; overflow-x: hidden; text-align: center; }
         
-        /* Header con Logos */
-        .header-brand { display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; background: #ffffff; border-bottom: 4px solid var(--tec-blue); }
-        .logo-img { height: 35px; }
-        .header-brand h1 { color: var(--tec-blue); font-size: 1.2rem; margin: 0; font-weight: 900; }
+        /* Header con Logos Incrustados (Base64) */
+        .header-brand { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #ffffff; border-bottom: 4px solid var(--tec-blue); }
+        .logo-img { height: 30px; width: auto; object-fit: contain; }
+        .header-brand h1 { color: var(--tec-blue); font-size: 1.1rem; margin: 0; font-weight: 900; }
 
-        .container { width: 90%; max-width: 500px; margin: 20px auto; text-align: center; }
-        .card { background: var(--card); padding: 25px; border-radius: 24px; border: 1px solid #2d3748; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .container { width: 92%; max-width: 480px; margin: 15px auto; }
+        .card { background: var(--card); padding: 20px; border-radius: 20px; border: 1px solid #2d3748; box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
         
-        button { background: var(--tec-blue); color: white; border: none; padding: 18px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1rem; transition: 0.3s; }
-        button:active { transform: scale(0.98); }
+        button { background: var(--tec-blue); color: white; border: none; padding: 16px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1rem; transition: 0.2s; -webkit-tap-highlight-color: transparent; }
+        button:active { transform: scale(0.97); opacity: 0.9; }
         .btn-green { background: var(--tecm-green); }
+        .btn-gray { background: #475569; }
 
-        .game-box { height: 300px; background: #00000033; border-radius: 15px; position: relative; border: 2px dashed #334155; margin: 15px 0; overflow: hidden; }
-        .timer-bar { width: 100%; height: 6px; background: #1e293b; border-radius: 3px; margin-bottom: 10px; }
-        .timer-fill { height: 100%; background: #f43f5e; width: 100%; transition: 1s linear; }
+        .game-box { height: 320px; background: #00000022; border-radius: 15px; position: relative; border: 2px dashed #2d3748; margin: 15px 0; overflow: hidden; }
         
-        .node { width: 55px; height: 55px; border-radius: 50%; position: absolute; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; animation: pop 0.3s ease-out; }
-        @keyframes pop { from {transform: scale(0);} to {transform: scale(1);} }
+        /* Barra de Tiempo */
+        .timer-container { width: 100%; height: 6px; background: #1e293b; border-radius: 3px; margin-bottom: 8px; overflow: hidden; }
+        .timer-fill { height: 100%; background: #f43f5e; width: 100%; transition: width 0.1s linear; }
         
+        /* Iconos Nexo Digital y Resultados */
+        .node { width: 60px; height: 60px; border-radius: 50%; position: absolute; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 26px; animation: popIn 0.2s ease-out; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        @keyframes popIn { from {transform: scale(0.5); opacity:0;} to {transform: scale(1); opacity:1;} }
+        
+        /* Nuevo Radar de Servicio (Mecánica Globos) */
+        .angry-face { font-size: 80px; cursor: pointer; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); transition: background 0.2s, color 0.2s; border-radius: 50%; padding: 20px; }
+        .angry-active { background: #991b1b; color: white; }
+        .angry-happy { background: #15803d; color: white; }
+        .angry-pop { background: #dc2626; color: white; animation: shake 0.3s; }
+        @keyframes shake { 0% { transform: translate(-50%, -50%) rotate(0deg); } 20% { transform: translate(-50%, -50%) rotate(5deg); } 40% { transform: translate(-50%, -50%) rotate(-5deg); } 60% { transform: translate(-50%, -50%) rotate(5deg); } 100% { transform: translate(-50%, -50%) rotate(0deg); } }
+
         .skill-badge { background: rgba(0, 179, 136, 0.1); color: var(--tecm-green); border: 1px solid var(--tecm-green); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; display: inline-block; margin: 3px; }
         .instr { font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px; line-height: 1.4; }
     </style>
@@ -34,202 +45,4 @@
 <body>
 
 <div class="header-brand">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Logo_del_Tec_de_Monterrey.svg" class="logo-img">
-    <h1>EmpleaTec</h1>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Logo_Tecmilenio.png/640px-Logo_Tecmilenio.png" class="logo-img">
-</div>
-
-<div class="container" id="view-manager">
-    <div id="menu">
-        <div class="card">
-            <h2 style="margin-top:0">Bienvenido al Challenge</h2>
-            <p class="instr">Completa los 3 desafíos de 25 segundos para descubrir tu perfil de competencias oficiales.</p>
-            <button onclick="showStart('digital')">1. NEXO DIGITAL</button>
-            <button onclick="showStart('results')" class="btn-green" style="margin-top:10px;">2. MISIÓN RESULTADOS</button>
-            <button onclick="showStart('service')" style="margin-top:10px;">3. RADAR DE SERVICIO</button>
-        </div>
-    </div>
-
-    <div id="start-screen" style="display:none">
-        <div class="card">
-            <h2 id="st-title"></h2>
-            <p id="st-desc" class="instr"></p>
-            <button id="st-btn" class="btn-green">¡COMENZAR RETO!</button>
-        </div>
-    </div>
-
-    <div id="game-view" style="display:none">
-        <div class="timer-bar"><div id="t-fill" class="timer-fill"></div></div>
-        <div id="game-ui"></div>
-        <div class="game-box" id="stage"></div>
-    </div>
-
-    <div id="result-view" style="display:none">
-        <div class="card" id="result-card"></div>
-        <button onclick="location.reload()" style="margin-top:15px; background:#475569;">VOLVER AL INICIO</button>
-    </div>
-</div>
-
-<script>
-    let currentScore = 0;
-    let timeLeft = 25;
-    let timerInterval;
-    const stage = document.getElementById('stage');
-
-    const games = {
-        digital: {
-            title: "Nexo Digital",
-            desc: "Toca los círculos lo más rápido posible. Los azules valen 1 pto, los dorados valen 5 ptos. Evalúa Agilidad de Aprendizaje y Destreza Digital.",
-            play: () => spawnDigital()
-        },
-        results: {
-            title: "Misión Resultados",
-            desc: "Solo toca los engranajes VERDES. Evita los ROJOS que te restan puntos. Evalúa Orientación a Resultados y Autogestión.",
-            play: () => spawnResults()
-        },
-        service: {
-            title: "Radar de Servicio",
-            desc: "Aparecerán emojis. Resuelve los 'molestos' (😡) tocándolos dos veces. Evalúa Inteligencia Social y Resiliencia.",
-            play: () => spawnService()
-        }
-    };
-
-    function showStart(key) {
-        document.getElementById('menu').style.display = 'none';
-        const scr = document.getElementById('start-screen');
-        scr.style.display = 'block';
-        document.getElementById('st-title').innerText = games[key].title;
-        document.getElementById('st-desc').innerText = games[key].desc;
-        document.getElementById('st-btn').onclick = () => startGame(key);
-    }
-
-    function startGame(key) {
-        document.getElementById('start-screen').style.display = 'none';
-        document.getElementById('game-view').style.display = 'block';
-        currentScore = 0;
-        timeLeft = 25;
-        document.getElementById('t-fill').style.width = '100%';
-        
-        timerInterval = setInterval(() => {
-            timeLeft--;
-            document.getElementById('t-fill').style.width = (timeLeft/25)*100 + '%';
-            if(timeLeft <= 0) endGame(key);
-        }, 1000);
-
-        games[key].play();
-    }
-
-    // --- LÓGICA JUEGO 1: NEXO ---
-    function spawnDigital() {
-        stage.innerHTML = '';
-        if(timeLeft <= 0) return;
-        const isBonus = Math.random() > 0.8;
-        const node = document.createElement('div');
-        node.className = 'node';
-        node.style.left = Math.random()*80 + '%';
-        node.style.top = Math.random()*80 + '%';
-        node.style.background = isBonus ? '#f1c40f' : '#3b82f6';
-        node.innerText = isBonus ? '⭐' : '📱';
-        node.onclick = () => { currentScore += isBonus ? 5 : 1; spawnDigital(); };
-        stage.appendChild(node);
-    }
-
-    // --- LÓGICA JUEGO 2: RESULTADOS ---
-    function spawnResults() {
-        stage.innerHTML = '';
-        if(timeLeft <= 0) return;
-        for(let i=0; i<2; i++) {
-            const isBad = Math.random() > 0.6;
-            const node = document.createElement('div');
-            node.className = 'node';
-            node.style.left = Math.random()*80 + '%';
-            node.style.top = Math.random()*80 + '%';
-            node.style.background = isBad ? '#ef4444' : '#10b981';
-            node.innerText = isBad ? '⚠️' : '⚙️';
-            node.onclick = () => { 
-                currentScore += isBad ? -3 : 2; 
-                spawnResults(); 
-            };
-            stage.appendChild(node);
-        }
-    }
-
-    // --- LÓGICA JUEGO 3: SERVICE ---
-    function spawnService() {
-        stage.innerHTML = '';
-        if(timeLeft <= 0) return;
-        const isAngry = Math.random() > 0.5;
-        const node = document.createElement('div');
-        node.className = 'node';
-        let clicks = isAngry ? 2 : 1;
-        node.style.left = Math.random()*80 + '%';
-        node.style.top = Math.random()*80 + '%';
-        node.style.background = isAngry ? '#991b1b' : '#1e3a8a';
-        node.innerText = isAngry ? '😡' : '😊';
-        node.onclick = () => {
-            clicks--;
-            if(clicks <= 0) { currentScore += isAngry ? 10 : 3; spawnService(); }
-            else { node.innerText = '⏳'; node.style.background = '#f97316'; }
-        };
-        stage.appendChild(node);
-    }
-
-    function endGame(key) {
-        clearInterval(timerInterval);
-        document.getElementById('game-view').style.display = 'none';
-        const resView = document.getElementById('result-view');
-        const resCard = document.getElementById('result-card');
-        resView.style.display = 'block';
-
-        let perfil = "";
-        let skills = [];
-
-        // SISTEMA DE EVALUACIÓN REAL POR JUEGO
-        if(key === 'digital') {
-            if(currentScore > 20) {
-                perfil = "Conector de Vanguardia";
-                skills = ["Destreza Digital", "Agilidad de Aprendizaje", "Adaptación al cambio"];
-            } else if (currentScore > 5) {
-                perfil = "Explorador Tecnológico";
-                skills = ["Destreza Digital"];
-            } else {
-                perfil = "Perfil en Crecimiento";
-                skills = ["Potencial de Aprendizaje"];
-            }
-        } else if(key === 'results') {
-            if(currentScore > 15) {
-                perfil = "Arquitecto de Resultados";
-                skills = ["Orientación a Resultados", "Autogestión", "Resolución de Problemas"];
-            } else if (currentScore > 5) {
-                perfil = "Ejecutor Enfocado";
-                skills = ["Organización"];
-            } else {
-                perfil = "Perfil en Desarrollo";
-                skills = ["Potencial de Autogestión"];
-            }
-        } else if(key === 'service') {
-            if(currentScore > 30) {
-                perfil = "Embajador de Inteligencia Social";
-                skills = ["Inteligencia Social", "Orientación al Servicio", "Resiliencia"];
-            } else if (currentScore > 10) {
-                perfil = "Gestor de Experiencias";
-                skills = ["Orientación al Servicio"];
-            } else {
-                perfil = "Empatía en Formación";
-                skills = ["Potencial de Resiliencia"];
-            }
-        }
-
-        resCard.innerHTML = `
-            <h1 style="color:var(--tecm-green); margin:0;">${perfil}</h1>
-            <p>Tu desempeño generó un impacto de: <strong>${currentScore} pts</strong></p>
-            <div style="margin:20px 0;">
-                <p style="font-size:0.8rem; opacity:0.7">Habilidades Identificadas:</p>
-                ${skills.map(s => `<span class="skill-badge">${s}</span>`).join('')}
-            </div>
-            <p style="font-size:0.8rem; line-height:1.4">Este perfil ha sido validado bajo el marco de competencias de EmpleaTec 2026.</p>
-        `;
-    }
-</script>
-</body>
-</html>
+    <img src="data:image/png;base64,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ExMUEBQQExMUERQSFBIUEBQTFRMUFBUUFRQVFRUVFRUWFRQUFBQUFBUUFRQUFBQUFBUUFRQUFRUVFRYVFRUWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYOL0A8bGF7f6bW_O4T19vWfT93_X7/AK/WfT93_R5B_N5vGvMreX6_4p_H0NfIer/p8M0vWvR53vR53b_P73vR5vefWvdv8_vevXvWvXv_96_WfT5Y7_R_4eM/L1rz_O_O_Gvd_R567fR5vR_vevR5vevXvT5GvXrz/R53_P73vXrxrzY/WfXvUfXrw8D9b8_vevXvd_7vW/0edvG_W_X5ve/v_tZ9evWvd_b-HnvvvePW/V_P6764_R5Xvb6fP3X9Xmv0e9649erfUvTvT53vePXrXrzr-Xnvrjzr_R55te9Z9HnrXrzevG_WvXv_9ve_vnt5teveOetvef7vW_0e7f7_W_w87ed_9-Xb_5Y7/R-H_R-KevXrwP7ed_W_XvWvb6-3nrWfX7_O-OfXnxv9evL9XnX5Y7f_WvP9_r_vnrjxrvvjy_v9evLrx_Rrzve_vnt-PWvePW-Xnbz+R_R7_O-PW/0eb8P1X_f4Z5vWvd_T93_T5ve4eZ-MeMeHPOnw_vnr3f0fdv3et48edve/OvaPW_VvX4Z9Hve_Xrwve/WfR7xr_Pn3ve/T6fP5W_WvT4Z669Hnfrt9Xnzv1v_75vT4Hnvt_GfWvd3R59Xnrxve/X_X7_X-Xnz6fM8D8Pve/O_0eMeZ7ePWve/H_Gvd/R5teveuet_b-VvT6_3_WvWvOvbvnz9Z69eves-PzvUfMteM87eMeHPXvR567ePWvd/W_Xv7_7GvWvXrz-HnvvveOfXrxr0eda8_vnt3ePHnPmteM87eX6v5eBvP_vjXrxrzO_W-Hnvv_vPOrteve/Xrzr_O/Pn_O_Gv6eP7vW_WfT5tevUfXrx_X_T7_R5teb_OveZ_Pn_OvaPW/R64teve/Xrzrw8B9fX-Xnvrr1f9Hnvve_H_veYPHvXrze-P_teveu/Xnv_X/X-XnxrzrzH9evK/GfTPWfXrx8D9H5vXrzrw8Z9X_Wvd3R93_Pn3ve/O_0+Hnrv_Wvd_9etePWfR967ePMeHP_tXrzev_v9erH67_ve_vnt_GfHnbvjz5567fX4teHnbvrzzryveveu_W_XrzeMef6fO_teMef6P_teveb4_W/X_R5_P73vR5teveu_O_X_R67eBvW_0ed-PW/R-G_P73vePWveMeteOfP1nrjzrz_P7_O/X-Xnvrrzzr/XnzrzY_G_XvTPTPXrz_P73vR5teveuet_Xv7_7GvXrzeves_OvaPW/R-XvX5Y_H-HPf7_P7_X4eZ7_GfTPOnw_HPWvd_W9eOfP1nr_HnX/fWvUeda8/OvbvjzrzrvPOrXrze-X6vOvbvXnx9Xnvrr_GvdvOvb_OveHnbveO_W-HnPOnwnrz_R53v7_Xnz6fXnxrz_Pn_XnzrzY/H-W-H_R-X6ve/W_TPTPOnw_HPWvd_GfXvT5ve/VvX_TPTPX5veHPPnPvX_T4Z9eteveu_R_G_X_R567f73vOvaPMeHPXrzb4teHnbvjz/T4Hnbvr_b4teveuOveb4teMef7_XnX5teMetfS_R53f93veveuetetfeO_Gvd_N8D8D8a9WfT5teb_G_T5GfOnw/H_XrzvTPTPTPXrzr9HnrrXnzvTPTPX5_T5vefT5vefTPT5XrzrzHPWvd_T93v7_X_X-W_X-H_X-X6vM_P_t5u+PWveMeteOfO_O_WvT4Hnxrv/HPOnwnrv/R53vR93vR53vX5Y_T5_O/H_GfOnw_T4Z69eOfUeda-HnPOnw_T5veHPPnPXrzez/T4teMeMeMeHPPnPh967_V_R5OvaPMeHPOnw_P7_G_X4HnbveOvdvT4R69eOfUeda8MePOnw_HPWvd_W9Xrz_R67eOfR567eMeHPZ4v9XnX/R56_N8teveu/W_TPT4Hnv1_R5GvXrz/R53_P73vXrx_Ovb_N73veP7vTPT5GfTPT5XvWfXvUfX_TPTPTPX5vefWvd3R59Xnrxve/X_X7_Xnxrzrzb4Z9eteOfOvaPMeHnxrvnwnrvt_GvdvOveHnbvnw_Pn_vT6veHnbvef6vTPT4HnPOnwnrv0e979ete-vMvB_G-P7vW_0e7-PWfXrz_R5vTPT4te_W_H_vjXrxrzveveuPWvb6fO_teHnrv_W_H_X4HnPOnwnrv/R53f7veveuetatfTP_WfWvR67eveu9eOfWvb6-MeZ_TP_W_UEDA4_OvaPHvHPOnw_Pn3ve_Xrzrw8Z9X_Wvd3R93_vTPT5tefT5vefTPW/Xrzeves9OvaPW/R-XvXrzbw8Z7xr_WfWvTPTPfT5_O/X4HnPOnwnrf_vj3rxrzGvaPOnw/Pn_GfP1nr_HPTPTPfT5ve4eZ-HPOnw/HPOnw/T4Hnv1vR5_Pn_teMet_X_R67etfeOvbvnz_XnX5teMetfXrzf7/b5_v7vevXvT5_TP_Xf9etfT_R64v_teMeteMetf7vePMeMef6fOvaPOnwnrz0e9649Hnrrr1_N7_Hnxrv_Wvd_9eteN8t_UeHnPTPT4Z-HPOnw/Pn3ve_Xrzrw8D9H5veveu9evevXrzbw8B9fX-Xnvrr1f9HnPOnw_Pn3ve_O_TPTPfX_TPTPfTP_Xf9etfT_R64teO_W_W_O_TPT4teMetfeOeveuOvbvnz_Xnv7_7GvWfT5vR5ve4eHPOnwnrf_vj3rxrzG_HnPOnwnrf_T4Hnv1nr_Gvd_R567eOeHnPOnw/T4teDPPnXrzev_v9etf7veetatfX_R67eceuO_G_Gvd_R567fX4HnvvvePWvb_N7ePHnXrrrHHPTPXrz_P73veveu9eOfHnPOnw_HPWvd3R93_Pn3ve_O/Pn3ve/O/R_T4_Pn3ve_XvT5Xrzbw8Z9Hve_XvXrzeveuves-HnPOnw/Pn3ve_Xrzbw8D8MeMet_Gvd_TPW_WfT5XrzeHPPnwnrv0e9649erfT-Metet_v9erH67fTP_WvUEDA4_Pn_HPXvR5_Pn3ve_O_TPTPX5tefT5vefTP_Xf9eteOfTPTPXrzHPZ49eveutatfWfR5_X_TP_vjX_fWvUeda8DPPnXrzevX/X5veMeteMef6fOvaPWfR5_X_TPX4Hnxrvnrv/X_T5GvRrzrw87ePMeHPG_HnPOnw_P73vXrzevves-PWfR67_N73veP7vTPT5veatatetetfTPXrzeHPPnwnrv_WfXrzeMeHPOnw/T4Hnv1nr/HnX_fWvUeda8_T5Hnxrv_TPX4Z6_HPWvd_W_TP_WvUeda4Z67eMeHPZ4PnPXvR567eMeHP_vTP_WfUEDA4DPXrzev_vjXrxrzG_HnPOnwnrz_H_Gvd_X4Hnv1nr_HnX_fWvUeda_HnPOnw/Pn3ve_O/Pn_OvaPW/Xrzbw8D8B9et_Gvd3fTPWvd_W9eO/Xrz_TPWvd3f9etfXrzb4Z6_HPOnw/T4teMeMeHnPOnw_P73vevuveHnrr1_XrzHPOP_vjXrzeveuPW_WfXrzeHPPnwnrv_HvaPW/XrzeHPPnwnrv_XnzeMeHPOnw/T4Z69eOfUedetePWfUed-PW/R-MetfeOvb6fTP_WvTPWvR67etfeOvaPW/R_R5teMetfeOeveuetetfXrz_T_vTP_GfT4HnvvvevuetatfTP_WvUEDA4Z9Hve/O_TPWvR67_O/Xrzez_HnV4teMeOfWvb6HnPOnw/Pn3ve_O/X-Xnxrz_Pn_XvTPTPOnw_P73vXnze/W-Xnbz_N73veeuetatfT4HnPOnwnrv_TPTPteMeOfW_TPTPUeda_OvaPW_X-Xnvrr1fTPOnw_Pn3ve/O/Xrzr_T_T4t-veuetetetetfeOeOeuves-PWvb6teMef7fOvaPMeHPOnw/Pn3ve_XvXrzeveuPWvR97eveuetetfeOeOeuves-MeMefTP/W_TP_GfTPOnw_HPWvd3R59Xnrxve_Xnzrw8D9b-Veda4D-Xrzev_vXrxrzGvaPMeHPOnw_Pn3ve/O/R_T4_Pn3ve_XrzevDPXrzaPW_TPWvTPX4Z6_HPWvd_W_TP_WvUeda8DPXvR567eOfWvTPT5veHPPnwnrv/HnWteMetfUfXrzr_O/Pn_Gvd_X4t-veuetetfeOveuOvb6eteetatfeOeOeuetatetfeetatfX4Hnv1vTPXvT5BWGBAgDPXrzaPMeHPGvaPW_X_T4HnPOnwnrv0et_0ePOnw_T4teDPPnXrzevX_X5teMef7fWvb6teMeteOfSvb6te_OetatfeOeMeHPPnwnrf/vjXrzeMeHPPnwnrv/XvaPMeHnPPnwnrv/R5veMeHnPTPT4Z_O_T4HnPOnwnrvt_R97etatfTPXrzeHPPnwnrv/H vaPW/XrzeHPPnwnrv/XrzeMeHPOnw/T4Hnv1nr/HnrrXrzeMeMeMeHnPOnw_P7_HPWvd3R59Xnrxve/Xrzr_O/X_WvR5BWGBDPPnXrzeMeHPGvaPMeHnrv_Wvd_T93uetatfeatatetetfeOeveu_OEtatfTPXrzeHPPnwnrv_XvaPMeHnrv0etfT6_TP/T4_O_XrzeMeHPPnwnrz_R5v_9eteetatetfX_R67eBvW_0e7-PW_OvaPHvOnw/Pn3ve_Xrzbw8Z9etfeetatetfeOeMef7fXvWfXvXrzeheuetetfX4teHnbvrzzr/Xnzr_X_T5teveuetetetetfeOeveuetatetfeeee_N7_Hnxrvnrv/XnzeMeHPPnwnrv/H vaPW_XnzeHPPnwnrv/R5teMeHnPPnwnrv0e9649erfeetatfeOeetatfT_TPWfXvUeHnxrv_TPX4teetatetfTPX5GvTP_WfUEDA4D-vPOnw_HPWvd3R59Xnrxve/X5teMef7fT6fXnxrzzrzeMeHPPnwnrz_H vaPMeHnrv/R5te_TPX_OvaPW_XnzeHPPnwnrv_TPTeatatetetfTP_vj_GfTP_TP_vjXrzeheueeuEtatfeSTATfXrzf_TP_TPTPfXnzrvHPOP_XrzXrzeeuetetfX4HnPOnwnrv/H_TP TeMetfeSTATfR_teetatfeeeetatfXrzb4teMeHnHPOP_vj3rxrzGvaPW/XrzeHPPnwnrv/XrzeheuetatfX4Z69eOfS_XnzrvHPOP_XrzeeuetatfTP_WEDA4DPXrzevX/X5BWGBAgDPXrzevXnzrv_TPWfX_XrzeeuetetfX5teMeOfTPT4te_WfWvXrzeuetatfeeeetatfeSTATfXrzf_R5bw8Z9Hve3d93dPnHPOP_TP_TPTPfXnzrvHPOP_XrzeeuetatfTP_WEDA4Z-Hve/OvaPOnw_HPWvd_W_TPTPteeeeuEtatfT_TPWvR67eveuetatfeetatfeetatfT_TP_W/R-XvX4t-veu_W_XvWvb69eteetatfeetatfeSTATfX_Ovb-PHvOnw/Pn3ve_Xrzbw8D9Xnv7fXrzve_vjX_fWvUeda4Z67eMeHnPOnw_Pn3veveuetatfeetatfeSTATfR-W_X4_Pn_teMeOfUfRrzeatatetfXrzf_R67etfeSTATfTPX_vj_vj_HnHPOP_T_TPTeetatfEEtfeostatfSTATfTPW_WfT-MeteteSTfEEtfeSTATfSTATfTPXrzeheuetetfTPX_R-X6veeuetetfEEtfeSTATfSTATfTPXrzeeuetetfX_OvaPW/XrzaPWfUed-PW/WvXrzeuetetfXrzbw8D-PWfUed_W_T5t-veu_OEtatfT_W/XrzveeuetetfeSTATfeeeEtatfSTATfXrzeetatfeSTATfSTATfeSTATfeSTATfTPX_XrzveMeOfTPW_OetatfeeeEtatfTPXrzaPMeHPOnw_HPWvd_W_T-P7vXnzeveuetetfXrzeMeOfTP_XrzeeuetatfXrzeeuetetfeSTATfeSTATfTPXrzeeuetetfeetatfX4HnbveOvdvevuuetetfSTATfeustatfetfeeltatfSTATfeSTATfTPXrzf_Ovb4teMefTP/W9eveeuetetfSTATfeSTATfeSTATfXrzeuetatfeSTATfXrzeetatfeetatfT_XrzeMeOfTPTeetatfTP_WfWvT4Z69eOfUedetePW/XvXrzeeuetetfSTATfTPTeetatfEEtfeetatfSTATfXrzeeuetetfXrzb-PW_XrzaPWfUeda8MeOvcveHPOP_T4teeltatfeSTATfXrzeeuetetfTP_W/R67_N8t-veu9et feustatfeSTATfSTATfTPW_OvcetatfeustatfTP_vj3rxrzGvaPOnw/T4Z67f3f9er feEtatfSTATfTPW_R_XrzaPMeHnrv_Wvd_VetautatfTP_XrzezveetatfTP_TPTeetatfeustatfTPTeSTATfTPXrzveeuetatfT_X_TPXnzeveuetetfeutatfeutatfTPW_R67euetatfT_TPTeostatfeustatfTPTeetatfeustatfEEtfeustatfeustfeetatfeulatfeeetatfeostatfeustatfeeetatfXrzbw8BvTPfWfUeda8DPXrzaPW_T4Hnxrv_Wvd_Ueda8MeOfSveutatfeutatfeeetatfSTATfTPW_OvcetatfUetaSTATfSTATfEEtfeetatfSTATfXrzb4Z-Hve/Xrzbw8D9eteeuetatfeutatfeustfeulatfeeustatfTPTeatatfeustatfeeeutatfTPTeatatfT_XrzeMeHnrv0et feetatfeulatfeeustatfeustatfTPXrzeetatfeutatfTPX_XrzezveetatfTPXrxrzveMeHnHPOP_X_R5teetatfeeeSTATfEEtfeostatfeutatfT_XrzezveeuetetfT_X_X-X6veuetetfeutatfeetatfeulatfetfeustfeatatfetfustatfeeetatfXrzbw8BvT5_XrzveheueustatfetfetfatfeulatfeeostatfeSTATfeutatfeeetatfeulatfeeostatfeeltatfeSTATfTPX_XrzeMeOvcetatfeulatfeeutatfeutatfTPXrzeetatfTP_XrzeetatfTPTeatatfeostatfXrzaPMeHnrv_T4teeeetatfSTATfXrzaPW_XvTeutatfeustatfeulatfeeetatfeeltatfeSTATfeSTATfeutatfeustatfeeSTATfEEtfeostatfeulatfetfustfEEtfeustatfetfeetatfeulatfetfeustfeeSTATfXrzaPWfUeda_DPOnwnrv/XrzeetatfT_TPWfUedeteSTATfX_OvaPHveSTATfSTATfTP_W/XrzaPW_XrzaPWfUeda_HnV4teeltatfeutatfeeulatfeeetatfTPXrzeuetatfeSTATfeultatfX_R67exr feostatfeustatfeustfeetatfeulatfetfustfEEtfeustatfeostatfeeustatfeostatfeeustfEEtfeustfeulatfeetfustfeeetatfXrzaPWfUeda4DPXvR_teeeetatfSTATfXrzb4Z6_vj3rxrzGvaPOnwnrv_vj3rxrzGvaPW_XrzeuetetfSTATfeeltatfXrzeetatfeultatfXrzeetatfeatatfXrzeuetatfT_X_TPXnzrzzr_X4Hnxrv_TPX4teutatfetatfTPTeetatfetfetfatfeutatfeeetatfetfeetatfeulatfeeutatfT_TPW_OvcetatfeSTATfTP_vj_fWvXrzeuetetfeSTATfeutatfeustfEEtfeatatfetfeetatfeeustatfeeostatfetfeeltatfSTATfeustatfeustfEEtfeustatfetfetfatfeSTATfTPXrzf_OveheeltatfTPXrzeeuetetfeeltatfTPX_OvaPW_XnzeeuetatfT_TPTeetatfeeustatfetfustatfT_XrzeMeOvcetatfeetatfeeustatfetfustatfT_TPWfUedeteetatfeSTATfTP_vjXrxrzeeuetatfeulatfeeutatfetfetfatfetfeetatfeeltatfeatatfeeulatfetfustatfetfetfatfeulatfeetfustfEEtfeustfeostatfeeulatfeeetatfeeustatfeulatfeeostatfeSTATfeeostatfetfeustfEEtfeatatfeeustfEEtfeustatfeeetatfT_XrzezrxeutatfeetatfeetatfeeustatfeulatfetfustatfT_TPW_OvcetatfeustatfTP_vj3rxrza_HPGvaPOnwnrvt_GvaPOnwnrv_XrzeuetetfeustatfeulatfetfustatfeeSTATfT_TPWfUedeteetatfUetaatatfeSTATfTP_vj_fW_vjXrzeuetatfetfustatfeatatfeeostatfeeltatfSTATfeeustatfeeSTATfEEtfeatatfeeulatfeetfeustfEEtfeustfeeitatfeulatfeetfeustfEEtfeilatfeeustatfeeatatfeulatfeetfustfeeutatfeeetatfT_TPTeetatfetfustatfeutatfT_TPTeostatfeustatfTPTeetatfeulatfeetfustatfT_TPTeatatfetfustatfeustatfetfetfatfetfeustfeeulatfeeustfeeustatfeustfeeatatfeulatfeeulatfeetfustatfeeatatfeatatfeeustfEEtfeatatfeeustatfetfeulatfetfetfatfeustatfetfeustfeeatatfeeutatfeetfustatfeeutatfT_XrzezrxeatatfeeltatfeatatfetfetfatfeostatfeostatfeeltatfT_TPWfUeda_HPXrzeostatfeulatfetfustatfetfustfEEtfeitatfeitatfXrzaPWfUeda4DPXvR5BWGBDPOnwnrv_TPTPteeeetatfeulatfeeutatfetfeustfEEtfeustfeilatfeetfustfeeetatfeatatfeetfustfEEtfeitatfeustatfetfustatfeeustatfetfeultatfT_TPWfUedeteSTATfX_OvaPHvP_XvRrzeuetatfetfetfatfeeulatfeetfustfeeitatfeeatfetfustfEEtfeustatfetfustatfeeustatfeulatfetfeultatfT_TPW_OvcetatfeustfT_X_X-vj_GfX4_T4_X_TPXnzrzeuetatfetfustatfeostatfeulatfeeustfEEtfeostatfeeustfEEtfeustfeostatfeeustatfeulatfeolatfeSTATfeulatfeilatfetfeustfEEtfeulatfealatfe STATfeeulatfeulatfeustfEEtfeustfeeatfeutatfetfustfeeutatfeelatfeetfustfEEtfeultatfeeutatfeetfustatfeustatfeatatfeultatfeetfustatfeeustatfeustatfeetfustatfeeitatfeeultatfeetfustfEEtfeatatfeetfustatfeeatfeultatfeetfeustfEEtfeilatfeetfeustfEEtfeitatfeustatfetfeultatfT_TPTeostatfeultatfT_TPWfUedeteultatfT_TPTeatatfetfustfeustfEEtfeSTATfTPXrzezveeltatfeolatfeulatfeetfustatfT_TPW_OvcetatfeutatfT_TPTeutatfetfustfeeatatfeetfustfEEtfeatatfeetfeustfEEtfeilatfeetfeustfEEtfeitatfeustfetfeatatfeeatatfeetfustatfeeutatfetfeitatfeetfustatfeeatfeilatfeetfustfEEtfeitatfeeatatfeeustfEEtfeilatfeeutatfealatfeeulatfeeustfEEtfeilatfeetfustfeeutatfealatfeeatatfeustfEEtfeatatfeetfustatfeustatfetfustatfeustfEEtfeSTATfTP_XrzeSTATfeSTATfTPW_R_XrzeeuetatfeutatfeutatfeeulatfetfustatfeeatfT_TPWfUedeteostatfeultatfeeltatfSTATfeeostatfetfeultatfSTATfeeatfeultatfeeulatfeitatfetfustfEEtfeatatfeetfeustfEEtfeitatfeeulatfeetfeultatfetfeustfEEtfeultatfeeutatfeatatfeolatfEEtfeustfEEtfeilatfeeitatfeetfeustfEEtfeustatfealatfeeostatfeilatfetfeultatfT_TPW_OvcetatfeustatfTPTeSTATfXrzeostatfeustfeulatfTP_XrzeustatfetfustfEEtfeustfEEtfeatatfeustatfeustatfetfeustfEEtfeultatfeetfeustfEEtfeatatfealatfeeustfEEtfeilatfeetfeustfeeatfeustatfetfeatatfeolatfeeulatfeetfustatfeetfustatfeeostatfeilatfeolatfEEtfeilatfeetfustfEEtfeatatfeealatfeeutatfetfeeltatfetfeeltatfeustfEEtfeTATfeeetatfT_TPTeostatfetfustatfeitatfeeltatfetfetfatfT_TPWfUedeteostatfetfeultatfSTATfeilatfetfustfEEtfeatatfeetfustfEEtfetatfT_XrzezveostatfeatatfeostatfXrzeuetatfetfustfeilatfeetfustfeeatatfeeutatfetfustfEEtfeustatfetfustatfeeultatfeustatfeustfEEtfeilatfeetfustfEEtfeatatfetfeustfEEtfeulatfeetfustfEEtfeitatfeeultatfeetfustatfeetfustatfeultatfetfustfEEtfeultatfeetatfetfeeltatfetfeeltatfeetfustfEEtfeatatfeetfustfEEtfeutatfealatfeeolatfEEtfeustfEEtfeultatfeeolatfEEtfeulatfeetfustatfeeulatfealatfXrzeuetatfetfustatfeilatfeeltatfetatfetfeeltatfSTATfeeulatfeeulatfetfustfEEtfeutatfeeatfeustfEEtfeustatfeilatfeeatfT_XrxrzeeuetatfeetatfetfustfeustatfeetfustfEEtfeatatfetfeultatfT_TPW_OvcetatfeelatfXrzeeuetatfeutatfeilatfeultatfetfeustatfeostatfeetfeeltatfSTATfeolatfeeustatfeilatfetfustatfeustfEEtfeustfeeitatfeustfEEtfeustfEEtfeilatfeultatfeulatfeetfustatfeeatfeatatfeetfustfEEtfeilatfEEtfeulatfeealatfeetfustfeeutatfealatfeeatfT_XrzezveulatfeolatfeeitatfEEtfeulatfealatfT_XrzeuetatfeilatfeutatfeulatfEEtfeustfEEtfeitatfeetfeustfEEtfeilatfeetfustatfeeulatfeustfEEtfeultatfeeolatfEEtfeustfEEtfealatfeilatfeeitatfEEtfeilatfeetfustfEEtfeilatfeeatatfeeolatfEEtfeustfEEtfeiatfEEtfeulatfeeatfeustfEEtfealatfeinatfeealatfealatfeustfEEtfeilatfEEtfeulatfealatfT_XrzeuetatfeeolatfeilatfeelatfT_XrzeuetatfeolatfeeolatfetfustfEEtfeilatfEEtfeulatfEEtfeustfEEtfeilatfeetfustfEEtfeustatfeilatfeeatfT_XrzeuetatfeilatfEEtfeilatfeeilatfetfustfEEtfeilatfEEtfeulatfeeatatfeustatfeutatfeelatfeeltatfSTATfeilatfeulatfetfustfEEtfeulatfeolatfeelatfeeltatfXrzveatatfeolatfetfustfEEtfeatfeeulatfeitatfeultatfeetfustfEEtfeulatfeolatfeSTATfeustfEEtfeatatfeatatfeetfeustfEEtfeilatfeetfeustfeeultatfeinatfeetfeustatfeeutatfetfeutatfealatfeetfustfeeutatfeatatfeulatfeetfustfeeutatfeetfeultatfetfeustfEEtfeilatfeetfeustfEEtfeatatfeealatfeeutatfetfeilatfetfeolatfeSTATfeatatfeatatfeLATfealatfeelatfT_TPWfUeda4DPXvR5_HPXvR5_HPXvRrzeuetatfetfeeltatfT_TPW_R_X_vj_GfTPTeatatfetfustfeelatfetfeeltatfSTATfeeolatfeeulatfEEtfeustfEEtfeilatfeetfeustfEEtfeustfeeutatfetfeultatfT_TPW_Ovc
